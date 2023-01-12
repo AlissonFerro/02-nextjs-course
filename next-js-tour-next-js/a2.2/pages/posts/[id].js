@@ -16,18 +16,22 @@ export async function getStaticPaths(){
   })
 
   return {
-    paths: paths,
-    fallback: false 
+    paths: [],
+    fallback: 'blocking' 
   }
 }
 
 export async function getStaticProps(context){
   const id = context.params.id;
+  const dadosDaAPI = await fetch(`https://fakeapi-omariosouto.vercel.app/api/posts/${id}`)
+    .then((res) => res.json());
+  
+  const post = dadosDaAPI;
 
-  const post = dados.posts.find((currentPost) => {
-    if(currentPost.id === id) return true
-    return false
-  })
+  // const post = dados.posts.find((currentPost) => {
+  //   if(currentPost.id === id) return true
+  //   return false
+  // })
 
   return {
     props: {
